@@ -1,0 +1,54 @@
+# Things to check before submitting ACDC
+-   check if ReqMgr status is `closed-out`
+-   check if unified status is indeed `assistance-manual`, as sometimes there are delays in the cms-unified page
+-   look for existing jira tickets
+-   check for solutions for specific errors in this [cheat sheet](https://docs.google.com/spreadsheets/d/12JBANxwzN0KWAV4o-yYxnA4Fe2juGXie5uiFXgF3bXo/edit#gid=0)
+-   check if there is an ongoing ACDC (Action: Pending on console)
+
+# Creating Jira tickets
+-   copy the full url of the workflow on Dima's site into description.
+    for example, `https://dmytro.web.cern.ch/dmytro/cmsprodmon/workflows.php?prep_id=task_TOP-RunIISummer20UL18NanoAODv2-00233`
+-   put the prep-id as title
+-   set priority
+-   tag interested parties in the description and component filed. (e.g. pdmv-conveners)
+-   **set labels** (e.g. T2_IN_TIFR, 8028-FallbackFileOpenError)
+
+# irrecoverable errors
+
+-   if workflow not `ReReco`, aiming 90% stats,
+    -   if there are recoverable errors
+        -   **submit ACDC**
+    -   if only irrecoverable errors
+        -   if stats < 90%, **contact pdmv**
+        -   else, **bypass**
+-   else, aiming 100% stats, same procedure as the above branch
+
+# TIFR site
+
+-   if error `99109`, **submit ACDC**
+-   else, 
+    -   for jobs failed with > 90% stats, **bypass** in jira tickets
+    -   for jobs failed with < 90% stats,
+        -   if number of jobs < O(100) (check on wmstats), **kill and clone**
+        -   otherwise, open jira tickets and **tag pdmv**
+
+# xrootd and HLT
+only enable xrootd in ACDC when:
+-   sites where the input files reside in is in drain (bold red for site name on console)
+
+when enabling xrootd, un-select CERN sites including HLT,
+as HLT cannot read files from sites outside of CERN, but outside sites can read from CREN storage.
+
+# report site issue in ggus
+open a ggus ticket to report any site issue, and cc the workflow and site support team at:
+-   [cms-comp-ops-workflow-team@cern.ch](mailto:cms-comp-ops-workflow-team@cern.ch)
+-   [cms-comp-ops-site-support-team@cern.ch](mailto:cms-comp-ops-site-support-team@cern.ch)
+
+# agentfilemismatch
+-   a grace period of 2 days before it moves to filemismatch
+-   ignore them if show up in assistance-manual
+
+# Pileup
+pileup inputs are known as "secondary" inputs, and they can only be read locally at sites due to their large size. 
+
+To check if a workflow has secondary inputs, look for `minbias` in the error report, or check `MCPileup` on ReqMgr.
