@@ -1,7 +1,7 @@
 # Things to check before submitting ACDC
 -   check if ReqMgr status is `closed-out`
 -   check if unified status is indeed `assistance-manual`, as sometimes there are delays in the cms-unified page
--   look for existing jira tickets
+-   look for existing jira tickets, if there is ongoing discussion, make sure the issues have been resolved before submitting ACDC
 -   check for solutions for specific errors in this [cheat sheet](https://docs.google.com/spreadsheets/d/12JBANxwzN0KWAV4o-yYxnA4Fe2juGXie5uiFXgF3bXo/edit#gid=0)
 -   check if there is an ongoing ACDC (Action: Pending on console)
 
@@ -33,7 +33,7 @@
         -   otherwise, open jira tickets and **tag pdmv**
 
 # xrootd and HLT
-only enable xrootd in ACDC when:
+enable xrootd in ACDC when:
 -   sites where the input files reside in is in drain (bold red for site name on console)
 
 when enabling xrootd, un-select CERN sites including HLT,
