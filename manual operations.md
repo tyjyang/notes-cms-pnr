@@ -2,7 +2,7 @@
 
 ## Things to check before submitting ACDC
 
--   check if ReqMgr status is `closed-out`
+-   check if ReqMgr status is `completed`
 -   check if unified status is indeed `assistance-manual`, as sometimes there are delays in the cms-unified page
 -   look for existing jira tickets, if there is ongoing discussion, make sure the issues have been resolved before submitting ACDC
 -   check for solutions for specific errors in this [cheat sheet](https://docs.google.com/spreadsheets/d/12JBANxwzN0KWAV4o-yYxnA4Fe2juGXie5uiFXgF3bXo/edit#gid=0)
@@ -63,9 +63,18 @@ when they have spare computing resources.
 For these sites, the probability of having a site issue is higher.
 Therefore, when irrecoverable errors are at T3 sites, try to run the workflows at non-opportunistic sites before bypassing or tagging pdmv.
 
-# Pileup
+# Input Datasets
 
-pileup inputs are known as "secondary" inputs, and they can only be read locally at sites due to their large size. 
+## Pileup
+pileup inputs are known as "secondary" inputs, and depending on how large they are,  
+some of them can practically only be read locally due to the I/O load. 
+
+There are different categories of pileup inputs, and they can be told apart by the starting word of their name:
+-   Neutrino
+-   MinBias
+-   RelVal
+-   Hydjet
+Neutrino and MinBias are the major categories, and MinBias is particularly large so they are only stored at major sites and can only be read locally.
 
 To check if a workflow has secondary inputs, look for `minbias` in the error report, or check `MCPileup` on ReqMgr.
 
