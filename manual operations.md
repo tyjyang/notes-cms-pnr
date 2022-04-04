@@ -44,11 +44,27 @@ open a ggus ticket to report any site issue, and cc the workflow and site suppor
 -   [cms-comp-ops-workflow-team@cern.ch](mailto:cms-comp-ops-workflow-team@cern.ch)
 -   [cms-comp-ops-site-support-team@cern.ch](mailto:cms-comp-ops-site-support-team@cern.ch)
 
-# agentfilemismatch
--   a grace period of 2 days before it moves to filemismatch
--   ignore them if show up in assistance-manual
+
 
 # Pileup
 pileup inputs are known as "secondary" inputs, and they can only be read locally at sites due to their large size. 
 
 To check if a workflow has secondary inputs, look for `minbias` in the error report, or check `MCPileup` on ReqMgr.
+
+# Unified status
+## agentfilemismatch
+-   a grace period of 2 days before it moves to filemismatch
+-   ignore them if show up in assistance-manual
+
+## assistance-manual
+-   workflows end up in this state if their statistics (percentage completed) ends up below a threshold.  
+    The common thresholds are:
+    -   100% for data
+    -   99% for NanoAOD MC
+    -   95% for other MC
+    
+## assistance-manual-recovered
+-   workflows will end up in this state if manual operations for `assistance-manual` workflows failed
+# Standard procedure for errors
+## `8021-FileReadError` and `8028-FallbackFileOpenError`
+In general, you should check dbs to track down the root cause. It might just be opportunistic, so ACDC without excluding the error site might already work.
