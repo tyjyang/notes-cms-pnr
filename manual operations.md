@@ -1,11 +1,15 @@
-# Things to check before submitting ACDC
+# Manual operation procedures
+
+## Things to check before submitting ACDC
+
 -   check if ReqMgr status is `closed-out`
 -   check if unified status is indeed `assistance-manual`, as sometimes there are delays in the cms-unified page
 -   look for existing jira tickets, if there is ongoing discussion, make sure the issues have been resolved before submitting ACDC
 -   check for solutions for specific errors in this [cheat sheet](https://docs.google.com/spreadsheets/d/12JBANxwzN0KWAV4o-yYxnA4Fe2juGXie5uiFXgF3bXo/edit#gid=0)
 -   check if there is an ongoing ACDC (Action: Pending on console)
 
-# Creating Jira tickets
+## Creating Jira tickets
+
 -   copy the full url of the workflow on Dima's site into description.
     for example, `https://dmytro.web.cern.ch/dmytro/cmsprodmon/workflows.php?prep_id=task_TOP-RunIISummer20UL18NanoAODv2-00233`
 -   put the prep-id as title
@@ -13,7 +17,7 @@
 -   tag interested parties in the description and component filed. (e.g. pdmv-conveners)
 -   **set labels** (e.g. T2_IN_TIFR, 8028-FallbackFileOpenError)
 
-# irrecoverable errors
+## dealing with irrecoverable errors
 
 -   if workflow not `ReReco`, aiming 90% stats,
     -   if there are recoverable errors
@@ -23,8 +27,14 @@
         -   else, **bypass**
 -   else, aiming 100% stats, same procedure as the above branch
 
-# TIFR site
+# Sites
 
+## site peculiarities
+
+### TIFR site
+
+There has been a long-standing issue at TIFR since end of 2021.  
+To deal with workflows failed at TIFR while this site issue remains, we:
 -   if error `99109`, **submit ACDC**
 -   else, 
     -   for jobs failed with > 90% stats, **bypass** in jira tickets
@@ -32,21 +42,29 @@
         -   if number of jobs < O(100) (check on wmstats), **kill and clone**
         -   otherwise, open jira tickets and **tag pdmv**
 
-# xrootd and HLT
+### xrootd and HLT
+
 enable xrootd in ACDC when:
 -   sites where the input files reside in is in drain (bold red for site name on console)
 
 when enabling xrootd, un-select CERN sites including HLT,
 as HLT cannot read files from sites outside of CERN, but outside sites can read from CREN storage.
 
-# report site issue in ggus
+## report site issue in ggus
+
 open a ggus ticket to report any site issue, and cc the workflow and site support team at:
 -   [cms-comp-ops-workflow-team@cern.ch](mailto:cms-comp-ops-workflow-team@cern.ch)
 -   [cms-comp-ops-site-support-team@cern.ch](mailto:cms-comp-ops-site-support-team@cern.ch)
 
+## Opportunistic sites (T3)
 
+To improve the utilization efficiency of our computing facilities, we would direct workflows to T3 sites
+when they have spare computing resources.  
+For these sites, the probability of having a site issue is higher.
+Therefore, when irrecoverable errors are at T3 sites, try to run the workflows at non-opportunistic sites before bypassing or tagging pdmv.
 
 # Pileup
+
 pileup inputs are known as "secondary" inputs, and they can only be read locally at sites due to their large size. 
 
 To check if a workflow has secondary inputs, look for `minbias` in the error report, or check `MCPileup` on ReqMgr.
@@ -65,6 +83,7 @@ To check if a workflow has secondary inputs, look for `minbias` in the error rep
     
 ## assistance-manual-recovered
 -   workflows will end up in this state if manual operations for `assistance-manual` workflows failed
+
 # Standard procedure for errors
 ## `8021-FileReadError` and `8028-FallbackFileOpenError`
 In general, you should check dbs to track down the root cause. It might just be opportunistic, so ACDC without excluding the error site might already work.
