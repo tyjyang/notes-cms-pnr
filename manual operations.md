@@ -78,6 +78,27 @@ Neutrino and MinBias are the major categories, and MinBias is particularly large
 
 To check if a workflow has secondary inputs, look for `minbias` in the error report, or check `MCPileup` on ReqMgr.
 
+# workflow composition
+workflows are made of **tasks**.
+Each task represents one step in the workflow production chain (e.g. GEN, SIM, DIGI...)
+
+Tasks are divided into **jobs** to be run on a batching system (e.g. condor).
+
+# Computing Resources
+Each workflow can only take up a limited amount of computing resource before hitting PerformanceKill walls (exit code `50664` and `50660`). 
+
+To better understand how computing resource limitations on workflows,
+one first needs to understand the [[manual operations#workflow composition|components of a workflow]].
+
+The limitations are put on condor "slots".
+Each condor slot hosts one job from a task of the workflow.
+Jobs are killed if they exceed designated **CPU time** or **memory usage** for the condor slot.
+To overcome these limitations, one could:
+-   split the jobs into smaller sizes so it takes less resources for them to run through
+    -   n.b. you can check the splitting algorithm used by tasks by looking at `SplittingAlgo` from the ReqMgr/JSON page of the workflow. If it is `EventAwareLumiBased`, then splitting will work; if it is `EventBased`, then splitting won't work.
+-   increase the number of CPU cores and the amount of memory per core.
+    -   n.b. changing nCore does not currently work in console (2022-04-05).
+
 # Unified status
 ## agentfilemismatch
 -   a grace period of 2 days before it moves to filemismatch
@@ -96,3 +117,5 @@ To check if a workflow has secondary inputs, look for `minbias` in the error rep
 # Standard procedure for errors
 ## `8021-FileReadError` and `8028-FallbackFileOpenError`
 In general, you should check dbs to track down the root cause. It might just be opportunistic, so ACDC without excluding the error site might already work.
+
+## `50660`
