@@ -1,6 +1,7 @@
 # Manual operation procedures
 
-## Things to check before submitting ACDC
+## Permanent procedures
+### Things to check before submitting ACDC
 
 -   check if ReqMgr status is `completed`
 -   check if unified status is indeed `assistance-manual`, as sometimes there are delays in the cms-unified page
@@ -8,7 +9,7 @@
 -   check for solutions for specific errors in this [cheat sheet](https://docs.google.com/spreadsheets/d/12JBANxwzN0KWAV4o-yYxnA4Fe2juGXie5uiFXgF3bXo/edit#gid=0)
 -   check if there is an ongoing ACDC (Action: Pending on console)
 
-## Creating Jira tickets
+### Creating Jira tickets
 
 -   copy the full url of the workflow on Dima's site into description.
     for example, `https://dmytro.web.cern.ch/dmytro/cmsprodmon/workflows.php?prep_id=task_TOP-RunIISummer20UL18NanoAODv2-00233`
@@ -17,7 +18,7 @@
 -   tag interested parties in the description and component filed. (e.g. pdmv-conveners)
 -   **set labels** (e.g. T2_IN_TIFR, 8028-FallbackFileOpenError)
 
-## dealing with irrecoverable errors
+### dealing with irrecoverable errors
 
 -   if workflow not `ReReco`, aiming 90% stats,
     -   if there are recoverable errors
@@ -26,6 +27,34 @@
         -   if stats < 90%, **contact pdmv**
         -   else, **bypass**
 -   else, aiming 100% stats, same procedure as the above branch
+
+## Transient procedures
+### `50664` and `71304` workflows
+-   Put (`50664-PerformanceKill` OR `71304-JobKilled`) AND (label for campaign e.g. ) as jira labels
+-   wait for response
+-   if no response for some time, reject
+
+### `8028` for empty files
+When input files were produced okay, but later became empty, one will see this error message:
+```
+Fatal Exception (Exit code: 8028)
+An exception of category 'FallbackFileOpenError' occurred while
+[0] Constructing the EventProcessor
+[1] Constructing input source of type PoolSource
+[2] Calling RootFileSequenceBase::initTheFile()
+Additional Info:
+[a] XrdCl::File::Open(name='[root://cmsxrootd.hep.wisc.edu//store/mc/RunIISummer20UL18MiniAOD/HToSSTo2Mu2Hadrons_MH125_MS1p1_ctauS100_TuneCP2_13TeV-powheg-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v1/2520000/A639C8D7-B843-F34E-98F7-8C077C24B6B2.root](root://cmsxrootd.hep.wisc.edu//store/mc/RunIISummer20UL18MiniAOD/HToSSTo2Mu2Hadrons_MH125_MS1p1_ctauS100_TuneCP2_13TeV-powheg-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v1/2520000/A639C8D7-B843-F34E-98F7-8C077C24B6B2.root)', flags=0x10, permissions=0660) => error '[ERROR] Server responded with an error: [3011] Too many attempts to gain dfs read access to the file
+' (errno=3011, code=400). No additional data servers were found.
+[b] Last URL tried: [root://cmsxrootd.hep.wisc.edu:1094//store/mc/RunIISummer20UL18MiniAOD/HToSSTo2Mu2Hadrons_MH125_MS1p1_ctauS100_TuneCP2_13TeV-powheg-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v1/2520000/A639C8D7-B843-F34E-98F7-8C077C24B6B2.root?tried=](root://cmsxrootd.hep.wisc.edu:1094//store/mc/RunIISummer20UL18MiniAOD/HToSSTo2Mu2Hadrons_MH125_MS1p1_ctauS100_TuneCP2_13TeV-powheg-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v1/2520000/A639C8D7-B843-F34E-98F7-8C077C24B6B2.root?tried=)
+[c] Problematic data server: cmsxrootd.hep.wisc.edu:1094
+[d] Disabled source: cmsxrootd.hep.wisc.edu:1094
+[e] Input file [root://cmsxrootd.hep.wisc.edu//store/mc/RunIISummer20UL18MiniAOD/HToSSTo2Mu2Hadrons_MH125_MS1p1_ctauS100_TuneCP2_13TeV-powheg-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v1/2520000/A639C8D7-B843-F34E-98F7-8C077C24B6B2.root](root://cmsxrootd.hep.wisc.edu//store/mc/RunIISummer20UL18MiniAOD/HToSSTo2Mu2Hadrons_MH125_MS1p1_ctauS100_TuneCP2_13TeV-powheg-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v1/2520000/A639C8D7-B843-F34E-98F7-8C077C24B6B2.root) could not be opened.
+Fallback Input file [root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18MiniAOD/HToSSTo2Mu2Hadrons_MH125_MS1p1_ctauS100_TuneCP2_13TeV-powheg-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v1/2520000/A639C8D7-B843-F34E-98F7-8C077C24B6B2.root?source=glow](root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18MiniAOD/HToSSTo2Mu2Hadrons_MH125_MS1p1_ctauS100_TuneCP2_13TeV-powheg-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v1/2520000/A639C8D7-B843-F34E-98F7-8C077C24B6B2.root?source=glow) also could not be opened.
+Original exception info is above; fallback exception info is below.
+[f] Fatal Root Error: @SUB=TStorageFactoryFile::ReadBuffer
+read from Storage::xread returned 0. Asked to read n bytes: 300 from offset: 0 with file size: 0
+```
+-   don't ACDC, instead apply `EmptyInputFile` as the jira label
 
 # Sites
 
@@ -78,11 +107,31 @@ Neutrino and MinBias are the major categories, and MinBias is particularly large
 
 To check if a workflow has secondary inputs, look for `minbias` in the error report, or check `MCPileup` on ReqMgr.
 
-# workflow composition
+WMCore-agent will only look for input blocks that are protected by their account.
+
+# workflow information
+
+## workflow composition
+
 workflows are made of **tasks**.
 Each task represents one step in the workflow production chain (e.g. GEN, SIM, DIGI...)
 
 Tasks are divided into **jobs** to be run on a batching system (e.g. condor).
+
+## checking workflow information
+
+### prepid and request ID (workflow ID)
+
+For MC workflows, prepid is contained in the request ID  
+FOr `ReReco` workflows, enter the request ID on `ReqMgr` to get prepid in the JSON file
+
+### worker node
+
+To check the specific node (specific machine within a site) at which the workflow was run:
+-   enter the workflow ID on [wmstats](https://cmsweb.cern.ch/wmstats/index.html),
+-   click on the box under the "L" column
+-   In the list of tasks under the workflow, click the "L" column box again for the task you want to check
+-   In the information shown at the bottom of the page, search for "worker node"
 
 # Computing Resources
 Each workflow can only take up a limited amount of computing resource before hitting PerformanceKill walls (exit code `50664` and `50660`). 

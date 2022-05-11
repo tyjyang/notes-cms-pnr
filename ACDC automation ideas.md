@@ -1,10 +1,3 @@
-# HLT and xrootd
-
--   For a given failed task, if there is a necessary site which is drain (marked as red and bold letters in the console):
-    -   Pre-select primary xrootd (don't touch the secondary xrootd at any step)
-    -   If either `T2_CH_CERN` or `T2_CH_CERN_HLT` is among the pre-selected sites, unselect them
-    -   It would be good to display a small message if console does this procedure in order to make it clear for new operators etc. It could be something like `There is a necessary site in drain, therefore enabling xrootd. Since xrootd is enabled, unselecting CERN and HLT since HLT cannot perform remote reads. We unselect CERN too, since jobs sent to CERN can be redirected to HLT internally`
-
 # filter workflows for group ACDC
 
 Sometimes the same type of error could affect multiple workflows, and the steps for manual ACDC are identical.  
@@ -23,6 +16,13 @@ The filtering criteria could be:
 for example, we could say:
 -   run ACDC without xrootd and splitting for all workflows in assistance-manual that failed at CERN sites with error 91009
 -   kill and clone for all workflows failed at TIFR that has < 90% statistics and < 1M events
+
+# HLT and xrootd
+
+-   For a given failed task, if there is a necessary site which is drain (marked as red and bold letters in the console):
+    -   Pre-select primary xrootd (don't touch the secondary xrootd at any step)
+    -   If either `T2_CH_CERN` or `T2_CH_CERN_HLT` is among the pre-selected sites, unselect them
+    -   It would be good to display a small message if console does this procedure in order to make it clear for new operators etc. It could be something like `There is a necessary site in drain, therefore enabling xrootd. Since xrootd is enabled, unselecting CERN and HLT since HLT cannot perform remote reads. We unselect CERN too, since jobs sent to CERN can be redirected to HLT internally`
 
 # Automatic site reassignment for draining sites
 When sites go into drain, we have to manually reassign workflows to other sites. The rules for which sites to reassign the workflows to could be automated:
