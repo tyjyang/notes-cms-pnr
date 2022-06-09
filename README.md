@@ -10,7 +10,7 @@ You only need to know basic markdown and git to be able to properly contribute t
 Fork this repo to your GitHub account, make edits as you see fit, and make a Pull Request (PR)
 for your edits to be merged.
 
-# Conversion to twiki
+# Convert to twiki
 You can compose your notes in lightweight markdown,
 and later convert it to html using pandoc:
 ```
