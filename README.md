@@ -1,6 +1,6 @@
 This is a repo of markdown notes, that can be directly viewed on GitHub by simply clicking on them.  
 They are collected from informal discussions among members of the PNR team,
-and are not meant to be used as official documentation. USE AT YOUR OWN DISCRETION.   
+and come with absolutely no warranty. USE AT YOUR OWN DISCRETION.   
 The official twiki page for the PNR team is
 [here](https://twiki.cern.ch/twiki/bin/view/CMS/CompOpsProductionReprocessing) (CMS credentials required to view).
 
