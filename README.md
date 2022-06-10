@@ -1,8 +1,8 @@
 This is a repo of markdown notes, that can be directly viewed on GitHub by simply clicking on them.  
-They are collected from discussions with folks in the PNR team,
-and are not meant to be used as official documentation.  
-Plans, however, exist to eventually convert them to polished, reviewed twiki pages as official documentation.  
-The official twiki page for the PNR team is [here](https://twiki.cern.ch/twiki/bin/view/CMS/CompOpsProductionReprocessing) (CMS credentials required to view).
+They are collected from informal discussions among members of the PNR team,
+and are not meant to be used as official documentation. USE AT YOUR OWN DISCRETION.   
+The official twiki page for the PNR team is
+[here](https://twiki.cern.ch/twiki/bin/view/CMS/CompOpsProductionReprocessing) (CMS credentials required to view).
 
 # How to contribute
 You only need to know basic markdown and git to be able to properly contribute to this repo.
