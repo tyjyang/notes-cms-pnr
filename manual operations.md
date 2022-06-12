@@ -28,7 +28,17 @@
         -   else, **bypass**
 -   else, aiming 100% stats, same procedure as the above branch
 
+### nLumis vs nEvts
+
+When the number of lumisections is incorrectly setup,
+workflows with all events completed will still end up in assistance-manual.
+
+To confirm the cause, search for `lumi completion` in Unified log on Dima's page.
+
 ## Transient procedures
+### `50115` for campaign `Run3Winter22XX`
+-   Due to a bad xml parser in an old CMSSW version, bypass these workflows
+
 ### `50664` and `71304` workflows
 -   Put (`50664-PerformanceKill` OR `71304-JobKilled`) AND (label for campaign e.g. ) as jira labels
 -   wait for response
