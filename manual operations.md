@@ -5,9 +5,11 @@
 
 -   check if ReqMgr status is `completed`
 -   check if unified status is indeed `assistance-manual`, as sometimes there are delays in the cms-unified page
+-   check the statistics; if it's 100%, just bypass
 -   look for existing jira tickets, if there is ongoing discussion, make sure the issues have been resolved before submitting ACDC
+-   check if there is already an ongoing ACDC (Action: Pending on console)
 -   check for solutions for specific errors in this [cheat sheet](https://docs.google.com/spreadsheets/d/12JBANxwzN0KWAV4o-yYxnA4Fe2juGXie5uiFXgF3bXo/edit#gid=0)
--   check if there is an ongoing ACDC (Action: Pending on console)
+
 
 ### Creating Jira tickets
 
